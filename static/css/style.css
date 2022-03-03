@@ -1,6 +1,11 @@
-/**
- * Layout
- */
+@keyframes header_anim {
+    from {
+      transform: translateX(-120%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
  body {
     margin: 0;
 }
@@ -25,6 +30,7 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
+    z-index: 99999;
 }
 
 
@@ -61,4 +67,25 @@ a:hover .logo{
 }
 .menu a{
     font-size: 30px;
+}
+img{
+    width: 90%;
+    padding-left: 5%;
+}
+div#welcome_image {
+    position: relative;
+}
+.text_na_kartinke{
+    position: absolute;
+    top: 50%;
+    color: white;
+    background: #a1a1a194;
+    font-size: 90px;
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    transform: translateX(0);
+    animation-name: header_anim;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
