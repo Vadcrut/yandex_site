@@ -60,7 +60,7 @@
 .logo {
     color: #ffffff;
     cursor: pointer;
-    transition: 3s;
+    transition: 1.5s;
 }
 a:hover .logo{
     color: crimson;
@@ -88,4 +88,35 @@ div#welcome_image {
     animation-name: header_anim;
     animation-duration: 0.5s;
     animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+#food_menu {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    padding-top: 50px;
+    text-align: center;
+    color: red;
+    font-size: 60px;
+    transition: background-size .3s;
+}
+#food_menu:hover {
+    background-size: 20% 2px;
+}
+table {
+    margin: 20px;
+}
+table td{
+    width: 33%;
+}
+table tr{
+    height: 100px;
+}
+#shaurma p{
+    text-align: center;
+    font-size: 25px;
+}
+table img{
+    height: 360;
 }
