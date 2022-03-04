@@ -104,19 +104,16 @@ div#welcome_image {
 #food_menu:hover {
     background-size: 20% 2px;
 }
-table {
-    margin: 20px;
-}
-table td{
-    width: 33%;
-}
-table tr{
-    height: 100px;
+#shaurmas{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 #shaurma p{
     text-align: center;
     font-size: 25px;
 }
-table img{
-    height: 360;
+#shaurma img{
+    width: 400px;
 }
