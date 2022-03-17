@@ -194,11 +194,13 @@ div#welcome_image {
     top: 0;
     z-index: 99999;
 }
-.container-fluid {
-    background-color: #000000;
-}
-.navbar-brand {
+
+.brand {
     text-decoration: none;
-    background-color: white;
-    text-decoration-color: #ffffff;
+
+    color: #ffffff;
+}
+#all {
+display: flex;
+flex-wrap: wrap;
 }
