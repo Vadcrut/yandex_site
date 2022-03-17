@@ -7,7 +7,9 @@
     }
   }
  body {
+    width: 100%;
     margin: 0;
+    background-color: #ffffff;
 }
 
 .section {
@@ -15,12 +17,6 @@
     height: 75vh;
     margin: 0;
 }
-
-#a { background-color: #0074d9; }
-#b { background-color: #2ecc40; }
-#c { background-color: #ff851b; }
-#d { background-color: #b10dc9; }
-
 
 
 .menu {
@@ -68,8 +64,8 @@ a:hover .logo{
 .menu a{
     font-size: 30px;
 }
-img{
-    width: 90%;
+#start_img{
+    width: 95%; /* почему так нормально работает а если поставить 90 - нет? */
     padding-left: 5%;
 }
 div#welcome_image {
@@ -89,7 +85,7 @@ div#welcome_image {
     animation-duration: 0.5s;
     animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
-#food_menu {
+#underlined_text {
     text-decoration: none;
     background-image: linear-gradient(currentColor, currentColor);
     background-position: 50% 100%;
@@ -101,10 +97,11 @@ div#welcome_image {
     font-size: 60px;
     transition: background-size .3s;
 }
-#food_menu:hover {
+#underlined_text:hover {
     background-size: 20% 2px;
 }
 #shaurmas{
+    padding-top: 50px;
     display: flex;
     justify-content: space-around;
     flex-direction: row;
@@ -116,4 +113,92 @@ div#welcome_image {
 }
 #shaurma img{
     width: 400px;
+    transition: 1s;
+    padding-left: 0%;
+}
+#shaurma img:hover{
+    transform: scale(1.2);
+}
+#button{
+    padding: 12px 24px;
+    border-width: 2px;
+    border-radius: 16px;
+    border-color: rgb(230, 47, 47);
+    font-size: 14px;
+    color: rgb(230, 47, 47);
+    background: #ffffff;
+    cursor: pointer;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    transition: all 0.3s ease;
+}
+#button:hover{
+    color: #ffffff;
+    background-color: rgb(230, 47, 47);
+}
+#position{
+    padding-top: 50px;
+}
+#underlined_text_2 {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    padding-top: 50px;
+    text-align: center;
+    color: red;
+    font-size: 60px;
+    transition: background-size .3s;
+}
+#underlined_text_2:hover {
+    background-size: 40% 2px;
+}
+#position p{
+    position: flex;
+    font-size: 50px;
+    text-align: center;
+    flex-wrap: wrap;
+}
+#underlined_text_3 {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    padding-top: 50px;
+    text-align: center;
+    color: red;
+    font-size: 60px;
+    transition: background-size .3s;
+}
+#underlined_text_3:hover {
+    background-size: 25% 2px;
+}
+#contacts {
+    display: inline-flex;
+}
+#contacts p{
+    position: flex;
+    font-size: 50px;
+    text-align: center;
+    flex-wrap: wrap;
+}
+#contacts img{
+    width: 400px;
+}
+.navbar{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 99999;
+}
+.container-fluid {
+    background-color: #000000;
+}
+.navbar-brand {
+    text-decoration: none;
+    background-color: white;
+    text-decoration-color: #ffffff;
 }
