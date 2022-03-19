@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Записи в блоге</h1>
+{% for item in orders%}
+<div class="col-md6 border rounded">
+    <h2>{{item.positions}}</h2>
+    <div>
+        {{item.bringing_time}}
+    </div>
+    <div>
+        Автор - {{item.user.name}}, номер для связи - {{item.user.phone}}
+    </div>
+</div>
+{% endfor %}
+</body>
+</html>
