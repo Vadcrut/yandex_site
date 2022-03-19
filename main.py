@@ -4,7 +4,8 @@ from data.users import User
 from data.orders import Orders
 from forms.login_form import LoginForm
 from forms.user import RegisterForm
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from forms.order_form import OrderForm
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -19,7 +20,6 @@ def load_user(user_id):
 
 
 @app.route('/')
-@app.route('/index')
 def main():
     return render_template('main_page.html')
 
@@ -77,6 +77,22 @@ def login():
 def logout():
     logout_user()
     return redirect("/login")
+
+
+@app.route('/make_order', methods=['GET', 'POST'])
+@login_required
+def add_news():
+    form = OrderForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        order = Orders()
+        order.positions = form.order.data
+        current_user.orders.append(order)
+        db_sess.merge(current_user)
+        db_sess.commit()
+        return redirect('/for_admin')
+    return render_template('make_order.html', title='Оформление заказа',
+                           form=form)
 
 
 if __name__ == '__main__':
