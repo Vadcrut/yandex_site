@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
 <h1>Записи в блоге</h1>
 {% for item in orders%}
 <div class="col-md6 border rounded">
@@ -17,5 +13,4 @@
     </div>
 </div>
 {% endfor %}
-</body>
-</html>
+{% endblock %}
