@@ -83,19 +83,21 @@ def logout():
 
 
 @app.route('/make_order', methods=['GET', 'POST'])
-@login_required
 def add_news():
-    form = OrderForm()
-    if form.validate_on_submit():
-        db_sess = db_session.create_session()
-        order = Orders()
-        order.positions = form.order.data
-        current_user.orders.append(order)
-        db_sess.merge(current_user)
-        db_sess.commit()
-        return redirect('/for_admin')
-    return render_template('make_order.html', title='Оформление заказа',
-                           form=form)
+    if current_user.is_authenticated:
+        form = OrderForm()
+        if form.validate_on_submit():
+            db_sess = db_session.create_session()
+            order = Orders()
+            order.positions = form.order.data
+            current_user.orders.append(order)
+            db_sess.merge(current_user)
+            db_sess.commit()
+            return redirect('/for_admin')
+        return render_template('make_order.html', title='Оформление заказа',
+                               form=form)
+    else:
+        return redirect('/login')
 
 
 if __name__ == '__main__':
