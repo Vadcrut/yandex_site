@@ -28,7 +28,10 @@ def main():
 def index():
     db_sess = db_session.create_session()
     orders = db_sess.query(Orders).all()
-    return render_template("for_admin.html", orders=orders)
+    if current_user.is_authenticated and current_user.email == 'admin@admin.ru':
+        return render_template("for_admin.html", orders=orders)
+    else:
+        return redirect('/')
 
 
 @app.route('/register', methods=['GET', 'POST'])
