@@ -204,3 +204,6 @@ div#welcome_image {
     display: flex;
     flex-wrap: wrap;
 }
+btn-dark{
+    font-size: 14px;
+}
