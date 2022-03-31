@@ -10,7 +10,7 @@ class Orders(SqlAlchemyBase):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    positions = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    # positions = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
     bringing_time = sqlalchemy.Column(sqlalchemy.DateTime, nullable=True)

@@ -28,7 +28,7 @@ def main():
 def index():
     db_sess = db_session.create_session()
     orders = db_sess.query(Orders).all()
-    if current_user.is_authenticated and current_user.email == 'admin@admin.ru':
+    if current_user.is_authenticated and current_user.email == 'admin1@admin.ru':
         return render_template("for_admin.html", orders=orders)
     else:
         return redirect('/')
@@ -89,6 +89,7 @@ def add_news():
         if form.validate_on_submit():
             db_sess = db_session.create_session()
             order = Orders()
+
             order.positions = form.order.data
             current_user.orders.append(order)
             db_sess.merge(current_user)

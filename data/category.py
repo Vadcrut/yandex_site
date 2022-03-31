@@ -7,7 +7,8 @@ association_table = sqlalchemy.Table(
     sqlalchemy.Column('orders', sqlalchemy.Integer,
                       sqlalchemy.ForeignKey('orders.id')),
     sqlalchemy.Column('tovars', sqlalchemy.Integer,
-                      sqlalchemy.ForeignKey('tovars.id'))
+                      sqlalchemy.ForeignKey('tovars.id')),
+    sqlalchemy.Column('amount', sqlalchemy.Integer)
 )
 
 
