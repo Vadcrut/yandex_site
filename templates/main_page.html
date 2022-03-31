@@ -61,21 +61,24 @@
                     <div id="shaurma">
                         <img src="../static/image/1.png">
                         <p>Всенародная</p>
-                        <input type="button" value="В корзину" id="button">
+                        <input type="button" value="В корзину" class="button">
                     </div>
                 </div>
                 <div class="col-4">
                     <div id="shaurma">
                         <img src="../static/image/2.png">
                         <p>1 по цене 2</p>
-                        <a href="/login"><input type="button" value="В корзину" id="button"></a>
+                        <form action="" method="post">
+                            {{ form.hidden_tag() }}
+                            <p>{{ form.submit(type="submit", class="button") }}</p>
+                        </form>
                     </div>
                 </div>
                 <div class="col-4">
                     <div id="shaurma">
                         <img src="../static/image/3.jpg">
                         <p>Пляжная</p>
-                        <input type="button" value="В корзину" id="button">
+                        <input type="button" value="В корзину" class="button">
                     </div>
                 </div>
             </div>

@@ -119,7 +119,7 @@ div#welcome_image {
 #shaurma img:hover{
     transform: scale(1.2);
 }
-#button{
+.button{
     padding: 12px 24px;
     border-width: 2px;
     border-radius: 16px;
@@ -133,7 +133,7 @@ div#welcome_image {
     transform: translate(-50%, 0);
     transition: all 0.3s ease;
 }
-#button:hover{
+.button:hover{
     color: #ffffff;
     background-color: rgb(230, 47, 47);
 }

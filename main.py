@@ -6,11 +6,13 @@ from forms.login_form import LoginForm
 from forms.user import RegisterForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from forms.order_form import OrderForm
+from forms.form_for_main import To_korzina
 
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+d = {1: 0, 2: 0, 3: 0}
 
 
 @login_manager.user_loader
@@ -19,9 +21,13 @@ def load_user(user_id):
     return db_sess.query(User).get(user_id)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def main():
-    return render_template('main_page.html')
+    form = To_korzina()
+    if form.validate_on_submit():
+        d[2] += 1
+    else:
+        return render_template('main_page.html', form=form)
 
 
 @app.route("/for_admin")
