@@ -5,5 +5,4 @@ from wtforms.validators import DataRequired
 
 
 class OrderForm(FlaskForm):
-    order = StringField('Шаурма', validators=[DataRequired()])
     submit = SubmitField('Применить')

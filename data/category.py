@@ -19,3 +19,4 @@ class Tovars(SqlAlchemyBase):
     name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     price = sqlalchemy.Column(sqlalchemy.Integer, default=1)
     amount_rest = sqlalchemy.Column(sqlalchemy.Integer, default=1)
+    link_to_picture = sqlalchemy.Column(sqlalchemy.String, default='')

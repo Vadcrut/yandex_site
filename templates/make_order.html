@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Добавление новости</h1>
+<h1>Ваш заказ</h1>
 <form action="" method="post">
     {{ form.hidden_tag() }}
-    <p>
-        {{ form.order.label }}<br>
-        {{ form.order(class="form-control") }}<br>
-        {% for error in form.order.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
+    {% for key in d.keys() %}
+        {% if d[key] != 0 %}
+            {% for item in food %}
+                {% if item.id == key %}
+                    <p>{{item.name}} - {{d[key]}}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
 </form>

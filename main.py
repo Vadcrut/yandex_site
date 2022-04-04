@@ -7,6 +7,7 @@ from forms.user import RegisterForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from forms.order_form import OrderForm
 from forms.form_for_main import To_korzina
+from data.category import Tovars
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -24,20 +25,33 @@ def load_user(user_id):
 @app.route('/', methods=['GET', 'POST'])
 def main():
     form = To_korzina()
+    d_secc = db_session.create_session()
+    food = d_secc.query(Tovars).all()
     if form.validate_on_submit():
+        print(d)
         d[2] += 1
     else:
-        return render_template('main_page.html', form=form)
+        return render_template('main_page.html', form=form, food=food)
 
 
 @app.route("/for_admin")
 def index():
+    print()
     db_sess = db_session.create_session()
     orders = db_sess.query(Orders).all()
     if current_user.is_authenticated and current_user.email == 'admin1@admin.ru':
         return render_template("for_admin.html", orders=orders)
     else:
         return redirect('/')
+
+
+@app.route("/search_id/<int:i>")
+def index1(i):
+    print(i)
+    d[i] += 1
+    return 'Добавлено'
+    # db_sess = db_session.create_session()
+    # orders = db_sess.query(Orders).all()
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -92,17 +106,18 @@ def logout():
 def add_news():
     if current_user.is_authenticated:
         form = OrderForm()
+        d_secc = db_session.create_session()
+        food = d_secc.query(Tovars).all()
         if form.validate_on_submit():
             db_sess = db_session.create_session()
             order = Orders()
-
             order.positions = form.order.data
             current_user.orders.append(order)
             db_sess.merge(current_user)
             db_sess.commit()
             return redirect('/for_admin')
         return render_template('make_order.html', title='Оформление заказа',
-                               form=form)
+                               form=form, d=d, food=food)
     else:
         return redirect('/login')
 
