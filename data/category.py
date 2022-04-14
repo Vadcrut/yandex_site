@@ -12,6 +12,8 @@ association_table = sqlalchemy.Table(
 )
 
 
+
+
 class Tovars(SqlAlchemyBase):
     __tablename__ = 'tovars'
     id = sqlalchemy.Column(sqlalchemy.Integer,

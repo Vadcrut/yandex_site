@@ -8,12 +8,13 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from forms.order_form import OrderForm
 from forms.form_for_main import To_korzina
 from data.category import Tovars
+from data.korzina import Korzina
 
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
-d = {1: 0, 2: 0, 3: 0}
+d = {}
 
 
 @login_manager.user_loader
@@ -47,11 +48,35 @@ def index():
 
 @app.route("/search_id/<int:i>")
 def index1(i):
-    print(i)
-    d[i] += 1
+    form = Korzina()
+    db_sess = db_session.create_session()
+    a = db_sess.query(Korzina).all()
+    for item in a:
+        if item.user_id == current_user.id:
+            if item.tovar_id == i:
+                s = item.amount
+                db_sess.delete(item)
+                form1 = Korzina()
+                form1.user_id = current_user.id
+                form1.tovar_id = i
+                form1.amount = s + 1
+                db_sess.add(form1)
+                db_sess.commit()
+            else:
+                form1 = Korzina()
+                form1.user_id = current_user.id
+                form1.tovar_id = i
+                form1.amount = 1
+                db_sess.add(form1)
+                db_sess.commit()
+        else:
+            form1 = Korzina()
+            form1.user_id = current_user.id
+            form1.tovar_id = i
+            form1.amount = 1
+            db_sess.add(form1)
+            db_sess.commit()
     return 'Добавлено'
-    # db_sess = db_session.create_session()
-    # orders = db_sess.query(Orders).all()
 
 
 @app.route('/register', methods=['GET', 'POST'])
