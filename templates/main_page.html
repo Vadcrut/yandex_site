@@ -65,7 +65,11 @@
                 <img src={{item.link_to_picture}}>
                 <p>{{item.name}}</p>
                 <p>{{item.price}} рублей</p>
-                <a href="/search_id/{{item.id}}"><input type="button" value="В корзину" id="{{item.id}}" class="button" onclick="alert({{item.id}});"> </a>
+                {% if current_user.is_authenticated %}
+                    <a href="/search_id/{{item.id}}"><input type="button" value="В корзину" id="{{item.id}}" class="button" onclick="alert({{item.id}});"> </a>
+                {% else %}
+                    <a href="/login"><input type="button" value="В корзину" class="button"> </a>
+                {% endif %}
             </div>
         </div>
         {%endfor%}

@@ -4,14 +4,15 @@
 <h1>Ваш заказ</h1>
 <form action="" method="post">
     {{ form.hidden_tag() }}
-    {% for key in d.keys() %}
-        {% if d[key] != 0 %}
-            {% for item in food %}
-                {% if item.id == key %}
-                    <p>{{item.name}} - {{d[key]}}</p>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
+    {% for tovar in goods %}
+         <div class="tovari">
+          <div class="tovar">
+              <p>{{ tovar }}</p>
+          </div>
+          <div class="tovar">
+              <button type="button" class="btn btn-danger">Danger</button>
+          </div>
+        </div>
     {% endfor %}
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}

@@ -9,6 +9,7 @@ from forms.order_form import OrderForm
 from forms.form_for_main import To_korzina
 from data.category import Tovars
 from data.korzina import Korzina
+from forms.button_plus import Button_plus
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -48,7 +49,6 @@ def index():
 
 @app.route("/search_id/<int:i>")
 def index1(i):
-    form = Korzina()
     db_sess = db_session.create_session()
     a = db_sess.query(Korzina).all()
     for item in a:
@@ -131,18 +131,16 @@ def logout():
 def add_news():
     if current_user.is_authenticated:
         form = OrderForm()
-        d_secc = db_session.create_session()
-        food = d_secc.query(Tovars).all()
-        if form.validate_on_submit():
-            db_sess = db_session.create_session()
-            order = Orders()
-            order.positions = form.order.data
-            current_user.orders.append(order)
-            db_sess.merge(current_user)
-            db_sess.commit()
-            return redirect('/for_admin')
-        return render_template('make_order.html', title='Оформление заказа',
-                               form=form, d=d, food=food)
+        btn_plus = Button_plus()
+        goods = []
+        db_sess = db_session.create_session()
+        a = db_sess.query(Korzina).all()
+        for item in a:
+            if item.user_id == current_user.id:
+                b = db_sess.query(Tovars).filter(Tovars.id == item.tovar_id)
+                for k in b:
+                    goods.append(k.name)
+        return render_template('make_order.html', goods=goods, form=form, btn_plus=btn_plus)
     else:
         return redirect('/login')
 

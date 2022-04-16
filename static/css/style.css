@@ -207,3 +207,9 @@ div#welcome_image {
 btn-dark{
     font-size: 14px;
 }
+.tovari {
+    display: flex;
+    align-items: center;
+    background-color: blanchedalmond;
+    border: 2px black;
+}
