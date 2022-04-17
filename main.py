@@ -9,7 +9,6 @@ from forms.order_form import OrderForm
 from forms.form_for_main import To_korzina
 from data.category import Tovars
 from data.korzina import Korzina
-from forms.button_plus import Button_plus
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -131,18 +130,51 @@ def logout():
 def add_news():
     if current_user.is_authenticated:
         form = OrderForm()
-        btn_plus = Button_plus()
         goods = []
         db_sess = db_session.create_session()
         a = db_sess.query(Korzina).all()
         for item in a:
-            if item.user_id == current_user.id:
-                b = db_sess.query(Tovars).filter(Tovars.id == item.tovar_id)
-                for k in b:
-                    goods.append(k.name)
-        return render_template('make_order.html', goods=goods, form=form, btn_plus=btn_plus)
+            if item.user_id == current_user.id and item.amount != 0:
+                goods = db_sess.query(Tovars).filter(Tovars.id == item.tovar_id)
+        return render_template('make_order.html', goods=goods, form=form, item=item)
     else:
         return redirect('/login')
+
+
+@app.route('/add_tovar/<int:i>')
+def add(i):
+    db_sess = db_session.create_session()
+    a = db_sess.query(Korzina).all()
+    for item in a:
+        if item.user_id == current_user.id:
+            if item.tovar_id == i:
+                s = item.amount
+                db_sess.delete(item)
+                form1 = Korzina()
+                form1.user_id = current_user.id
+                form1.tovar_id = i
+                form1.amount = s + 1
+                db_sess.add(form1)
+                db_sess.commit()
+    return render_template('success_page.html')
+
+
+@app.route('/remove_tovar/<int:i>')
+def remove(i):
+    db_sess = db_session.create_session()
+    a = db_sess.query(Korzina).all()
+    for item in a:
+        if item.user_id == current_user.id:
+            if item.tovar_id == i:
+                s = item.amount
+                db_sess.delete(item)
+                form1 = Korzina()
+                form1.user_id = current_user.id
+                form1.tovar_id = i
+                form1.amount = s - 1
+                db_sess.add(form1)
+                db_sess.commit()
+    return render_template('success_page.html')
 
 
 if __name__ == '__main__':
