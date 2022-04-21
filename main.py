@@ -9,6 +9,7 @@ from forms.order_form import OrderForm
 from forms.form_for_main import To_korzina
 from data.category import Tovars
 from data.korzina import Korzina
+import datetime
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -37,7 +38,6 @@ def main():
 
 @app.route("/for_admin")
 def index():
-    print()
     db_sess = db_session.create_session()
     orders = db_sess.query(Orders).all()
     if current_user.is_authenticated and current_user.email == 'admin1@admin.ru':
@@ -50,31 +50,21 @@ def index():
 def index1(i):
     db_sess = db_session.create_session()
     a = db_sess.query(Korzina).all()
+    f = False
     for item in a:
         if item.user_id == current_user.id:
             if item.tovar_id == i:
-                s = item.amount
-                db_sess.delete(item)
-                form1 = Korzina()
-                form1.user_id = current_user.id
-                form1.tovar_id = i
-                form1.amount = s + 1
-                db_sess.add(form1)
+                f = True
+                item.amount += 1
+                db_sess.merge(item)
                 db_sess.commit()
-            else:
-                form1 = Korzina()
-                form1.user_id = current_user.id
-                form1.tovar_id = i
-                form1.amount = 1
-                db_sess.add(form1)
-                db_sess.commit()
-        else:
-            form1 = Korzina()
-            form1.user_id = current_user.id
-            form1.tovar_id = i
-            form1.amount = 1
-            db_sess.add(form1)
-            db_sess.commit()
+    if not f:
+        form1 = Korzina()
+        form1.user_id = current_user.id
+        form1.tovar_id = i
+        form1.amount = 1
+        db_sess.add(form1)
+        db_sess.commit()
     return 'Добавлено'
 
 
@@ -128,15 +118,25 @@ def logout():
 
 @app.route('/make_order', methods=['GET', 'POST'])
 def add_news():
+    form = OrderForm()
+    db_sess = db_session.create_session()
+    if form.validate_on_submit():
+        order = Orders()
+        order.user_id = current_user.id
+        a = datetime.datetime.now()
+        b = a + datetime.timedelta(minutes=30)
+        order.created_date = a
+        order.bringing_time = b
+        db_sess.add(order)
+        db_sess.commit()
     if current_user.is_authenticated:
-        form = OrderForm()
-        goods = []
-        db_sess = db_session.create_session()
         a = db_sess.query(Korzina).all()
+        sl = {}
         for item in a:
             if item.user_id == current_user.id and item.amount != 0:
                 goods = db_sess.query(Tovars).filter(Tovars.id == item.tovar_id)
-        return render_template('make_order.html', goods=goods, form=form, item=item)
+                sl[item] = goods
+        return render_template('make_order.html', form=form, sl=sl)
     else:
         return redirect('/login')
 

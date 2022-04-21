@@ -4,19 +4,21 @@
 <h1>Ваш заказ</h1>
 <form action="" method="post">
     {{ form.hidden_tag() }}
-    {% for tovar in goods %}
-    <div class="tovari">
-        <div class="tovar">
-            <p>{{ tovar.name }} -- {{ item.amount }}</p>
-        </div>
-        <div class="tovar">
-            <a href="/add_tovar/{{tovar.id}}"><input type="button" value="+"
-                                                     class="btn btn-danger" onclick="alert({{tovar.id}});"></a>
-            <a href="/remove_tovar/{{tovar.id}}"><input type="button" value="-"
-                                                        class="btn btn-primary" onclick="alert({{tovar.id}});"></a>
-        </div>
-    </div>
-    <br>
+    {% for item in sl.keys() %}
+        {% for tovar in sl[item] %}
+            <div class="tovari">
+                <div class="tovar">
+                    <p>{{ tovar.name }} ----------- {{ item.amount }}</p>
+                </div>
+                <div class="tovar">
+                    <a href="/add_tovar/{{tovar.id}}"><input type="button" value="+"
+                                                             class="btn btn-danger" onclick="alert({{tovar.id}});"></a>
+                    <a href="/remove_tovar/{{tovar.id}}"><input type="button" value="-"
+                                                                class="btn btn-primary" onclick="alert({{tovar.id}});"></a>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
     {% endfor %}
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
