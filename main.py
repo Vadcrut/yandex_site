@@ -10,12 +10,14 @@ from forms.form_for_main import To_korzina
 from data.category import Tovars
 from data.korzina import Korzina
 import datetime
+from API import get_picture
 
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 d = {}
+mashtab = (0.001, 0.001)
 
 
 @login_manager.user_loader
@@ -29,6 +31,8 @@ def main():
     form = To_korzina()
     d_secc = db_session.create_session()
     food = d_secc.query(Tovars).all()
+    address = 'Кострома, ул.Сусанина 10'
+    get_picture.do(address, mashtab)
     if form.validate_on_submit():
         print(d)
         d[2] += 1
@@ -177,6 +181,23 @@ def remove(i):
     return render_template('success_page.html')
 
 
+@app.route('/make_less')
+def make_less():
+    global mashtab
+    x, y = mashtab[0], mashtab[1]
+    mashtab = x / 2, y / 2
+    return 'done'
+
+@app.route('/make_more')
+def make_more():
+    global mashtab
+    x, y = mashtab[0], mashtab[1]
+    mashtab = x * 2, y * 2
+    return 'done'
+
+
 if __name__ == '__main__':
+    address = 'Кострома, ул.Сусанина 10'
+    get_picture.do(address, mashtab)
     db_session.global_init("db/users.db")
     app.run(port=8080, host='127.0.0.1')
