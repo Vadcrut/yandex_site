@@ -20,6 +20,11 @@ d = {}
 mashtab = (0.001, 0.001)
 
 
+@app.errorhandler(404)
+def chetyre():
+    pass
+
+
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
@@ -187,6 +192,7 @@ def make_less():
     x, y = mashtab[0], mashtab[1]
     mashtab = x / 2, y / 2
     return 'done'
+
 
 @app.route('/make_more')
 def make_more():
